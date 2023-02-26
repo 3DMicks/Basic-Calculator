@@ -161,3 +161,7 @@ btnMultiply.operation = "x";
 document.querySelector("#btn-decimal").addEventListener("click", insertDecimalEvent);
 
 document.querySelector("#btn-operate").addEventListener("click", operate);
+
+document.querySelector("#btn-help").addEventListener("click", (event) =>{
+    alert("A generic calculator. Made by 3DMicks:\nhttps://github.com/3DMicks/Basic-Calculator");
+});
