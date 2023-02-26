@@ -23,6 +23,13 @@ function isFinalCharValid() {
     return (digits.includes(trimmedInput[trimmedInput.length - 1]));
 }
 
+function insertDecimalEvent() {
+    if (!isFinalCharValid()) return;
+
+    let input = getInput();
+    input.textContent = input.textContent + ".";
+}
+
 function insertOperationEvent(event) {
     let input = getInput();
     if (!isFinalCharValid()) return;
@@ -48,9 +55,8 @@ function operate(event) {
     let opArray = [...input.textContent.trim()].filter((char) => char != " ");
 
     let index = 0;
-    let iters = 0;
-    while (getOperationIndexes(opArray).length > 0 && iters < 5) {
-        iters += 1;
+    let negativeIters = 0;
+    while (getOperationIndexes(opArray).length > 0 && negativeIters < 10) {
         let operationsIndex = getOperationIndexes(opArray);
         let opIndex = operationsIndex[index];
         // Index of first character of the left number
@@ -101,6 +107,7 @@ function operate(event) {
                 break;
         }
         console.log("Result: " + opResult);
+        if (opResult <= 0) negativeIters++;
 
         opArray = opArray.slice(rightHandIndex, opArray.length);
         opArray = [...opResult.toString()].concat(opArray);
@@ -150,5 +157,7 @@ btnDivide.operation = "÷";
 let btnMultiply = document.querySelector("#btn-multiply");
 btnMultiply.addEventListener("click", insertOperationEvent);
 btnMultiply.operation = "x";
+
+document.querySelector("#btn-decimal").addEventListener("click", insertDecimalEvent);
 
 document.querySelector("#btn-operate").addEventListener("click", operate);

@@ -55,11 +55,15 @@ body {
 #btn-subtract,
 #btn-add {
     background-color: #3DCC00;
+    font-size: 48px;
+    font-weight: 400;
 }
 
 #btn-delete,
 #btn-clear {
     background-color: #A40606;
+    font-size: 48px;
+    font-weight: 500;
 }
 
 #btn-delete {
@@ -68,8 +72,22 @@ body {
     font-size: 16px;
     border-radius: 12px;
     margin-left: auto;
+    margin-right: 32px;
+}
+
+.calc-input-section {
+    border: solid;
+    border-color: #37312F;
+    background-color: #4b4644;
+    min-width: 256px;
+    height: 48px;
+    padding: 12px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
 }
 
 .calc-input {
     font-size: 32px;
+    margin: 0px;
 }
