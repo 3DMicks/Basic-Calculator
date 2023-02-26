@@ -41,13 +41,36 @@ function operate(event) {
     const digits = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
     const symbols = ["+", "-", "÷", "x"];
 
-    let operations = [];
+    let operationsIndex = [];
     for (const [index, char] of opArray.entries()) {
-        if (symbols.includes(char)) operations.push(index);
+        if (symbols.includes(char)) operationsIndex.push(index);
     }
 
+    for (const [index, opIndex] of operationsIndex.entries()) {
+        // Index of first character of the left number
+        let leftHand = index == 0 ? 0 : operationsIndex[index - 1] + 1;
+        // Index of last character of the right number
+        let rightHand = operationsIndex[index + 1] == undefined ? opArray.length : operationsIndex[index + 1];
+
+        leftHand = opArray.slice(leftHand, opIndex);
+        let leftHandNumber = leftHand.reduce((text, char) => {
+            return text + char.toString();
+        }, "");
+
+        rightHand = opArray.slice(opIndex + 1, rightHand);
+        let rightHandNumber = rightHand.reduce((text, char) => {
+            return text + char.toString();
+        }, "");
+
+        console.log("NUMBERS:");
+        console.log(leftHandNumber);
+        console.log(rightHandNumber);
+    }
+
+    console.log("OP ARRAYS:");
     console.log(opArray);
-    console.log(operations);
+    console.log(operationsIndex);
+
 
     //clearInput();
     //input.textContent = result.toString();
