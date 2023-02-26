@@ -30,6 +30,15 @@ function insertOperationEvent(event) {
     input.textContent = `${input.textContent} ${this.operation} `;
 }
 
+function getOperationIndexes(array) {
+    let indexes = [];
+    const symbols = ["+", "-", "÷", "x"];
+    for (const [index, char] of array.entries()) {
+        if (symbols.includes(char)) indexes.push(index);
+    }
+    return indexes;
+}
+
 function operate(event) {
     let input = getInput();
     if (input.textContent.length <= 0) return;
@@ -38,38 +47,80 @@ function operate(event) {
     let result = 69420;
     let opArray = [...input.textContent.trim()].filter((char) => char != " ");
 
-    const digits = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
-    const symbols = ["+", "-", "÷", "x"];
-
-    let operationsIndex = [];
-    for (const [index, char] of opArray.entries()) {
-        if (symbols.includes(char)) operationsIndex.push(index);
-    }
-
-    for (const [index, opIndex] of operationsIndex.entries()) {
+    let index = 0;
+    let iters = 0;
+    while (getOperationIndexes(opArray).length > 0 && iters < 5) {
+        iters += 1;
+        let operationsIndex = getOperationIndexes(opArray);
+        let opIndex = operationsIndex[index];
         // Index of first character of the left number
-        let leftHand = index == 0 ? 0 : operationsIndex[index - 1] + 1;
+        let leftHandIndex = index == 0 ? 0 : operationsIndex[index - 1] + 1;
         // Index of last character of the right number
-        let rightHand = operationsIndex[index + 1] == undefined ? opArray.length : operationsIndex[index + 1];
+        let rightHandIndex = operationsIndex[index + 1] == undefined ? opArray.length : operationsIndex[index + 1];
 
-        leftHand = opArray.slice(leftHand, opIndex);
-        let leftHandNumber = leftHand.reduce((text, char) => {
+        let leftHandArray = opArray.slice(leftHandIndex, opIndex);
+        let leftHandNumber = leftHandArray.reduce((text, char) => {
             return text + char.toString();
         }, "");
 
-        rightHand = opArray.slice(opIndex + 1, rightHand);
-        let rightHandNumber = rightHand.reduce((text, char) => {
+        let rightHandArray = opArray.slice(opIndex + 1, rightHandIndex);
+        let rightHandNumber = rightHandArray.reduce((text, char) => {
             return text + char.toString();
         }, "");
 
         console.log("NUMBERS:");
         console.log(leftHandNumber);
         console.log(rightHandNumber);
+
+        let op = {
+            left: +leftHandNumber,
+            right: +rightHandNumber,
+            operation: opArray[opIndex],
+        }
+
+        console.log(op);
+
+
+        let opResult = 0;
+        // Do the calculation
+        switch (opArray[opIndex]) {
+            case "+":
+                opResult = (op.left) + (op.right);
+                break;
+            case "-":
+                opResult = (op.left) - (op.right);
+                break;
+            case "x":
+                opResult = (op.left) * (op.right);
+                break;
+            case "÷":
+                opResult = (op.left) / (op.right);
+                break;
+            default:
+                opResult = -1;
+                break;
+        }
+        console.log("Result: " + opResult);
+
+        opArray = opArray.slice(rightHandIndex, opArray.length);
+        opArray = [...opResult.toString()].concat(opArray);
+
+        operationsIndex = getOperationIndexes(opArray);
+
+        console.log("ARRAYS:");
+        console.table(opArray);
+        console.log("Op Indexes:");
+        console.log(operationsIndex);
+        console.log("-!*:*!-");
     }
 
-    console.log("OP ARRAYS:");
-    console.log(opArray);
-    console.log(operationsIndex);
+    console.log("~~~ FINAL ARRAYS:");
+    console.table(opArray);
+    console.log(getOperationIndexes(opArray));
+    result = +opArray.join("");
+    console.log("!! FINAL RESULT: " + result);
+    result = +result.toFixed(5);
+    input.textContent = result.toString();
 
 
     //clearInput();
