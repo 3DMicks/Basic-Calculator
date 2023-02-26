@@ -1,4 +1,68 @@
 body {
     background-color: #1C1C1C;
     color: #FDFFF7;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
+
+.calculator {
+    display: flex;
+    flex-flow: column wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+}
+
+.calc-buttons {
+    display: flex;
+    flex-flow: column wrap;
+    gap: 12px;
+}
+
+.calc-btn {
+    background-color: #37312F;
+    color: #FDFFF7;
+    border: none;
+    width: 128px;
+    height: 128px;
+    cursor: pointer;
+    border-radius: 50%;
+    font-size: 32px;
+    transition: all 0.5s;
+}
+
+.calc-btn:hover {
+    background-color: #4b4644;
+    scale: 1.1;
+}
+
+.calc-row {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 12px;
+}
+
+#btn-evaluate,
+#btn-multiply,
+#btn-divide,
+#btn-multiply,
+#btn-subtract,
+#btn-add {
+    background-color: #3DCC00;
+}
+
+#btn-delete,
+#btn-clear {
+    background-color: #A40606;
+}
+
+#btn-delete {
+    width: 64px;
+    height: 64px;
+    font-size: 32px;
+}
+
+.calc-input {
+    font-size: 32px;
 }
