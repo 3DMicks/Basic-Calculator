@@ -1,2 +1,2 @@
 # Basic-Calculator
-A basic calculator
+A basic calculator for an The Odin Project assignment
