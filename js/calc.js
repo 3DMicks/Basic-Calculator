@@ -163,5 +163,5 @@ document.querySelector("#btn-decimal").addEventListener("click", insertDecimalEv
 document.querySelector("#btn-operate").addEventListener("click", operate);
 
 document.querySelector("#btn-help").addEventListener("click", (event) =>{
-    alert("A generic calculator. Made by 3DMicks:\nhttps://github.com/3DMicks/Basic-Calculator");
+    alert("A generic calculator, doesn't follow order of operation yet. Made by 3DMicks:\nhttps://github.com/3DMicks/Basic-Calculator");
 });
